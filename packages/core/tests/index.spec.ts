@@ -1,6 +1,6 @@
 import { Context } from 'cordis'
 import { expect } from 'chai'
-import Capability, { createMatch } from '../src'
+import { Capability, createMatch } from '@cordisjs/plugin-capability'
 
 function sleep(ms = 0) {
   return new Promise<void>((resolve) => setTimeout(resolve, ms))

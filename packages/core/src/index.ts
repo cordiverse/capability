@@ -7,11 +7,14 @@ declare module 'cordis' {
   }
 }
 
-export interface MatchResult<P extends string = string> {
-  [key: string]: string
-}
+type GroupNames<P extends string, K extends string = never> =
+  | P extends `${string}(${infer R})${infer S}`
+  ? GroupNames<S, K | R>
+  : K
 
-export type Matcher = (input: string) => MatchResult | undefined
+export type MatchResult<P extends string = never> = Record<GroupNames<P>, string>
+
+export type Matcher<P extends string = never> = (input: string) => MatchResult<P> | undefined
 
 const PLACEHOLDER = /\(([a-zA-Z_]\w*)\)/g
 const REGEX_META = /[.*+?^${}|[\]\\]/g

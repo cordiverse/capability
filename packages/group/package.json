@@ -1,0 +1,35 @@
+{
+  "name": "@cordisjs/plugin-capability-group",
+  "version": "0.1.0",
+  "description": "Declarative capability groups backed by inherit semantics",
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "author": "Shigma <shigma10826@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cordiverse/capability.git",
+    "directory": "packages/group"
+  },
+  "bugs": {
+    "url": "https://github.com/cordiverse/capability/issues"
+  },
+  "homepage": "https://github.com/cordiverse/capability",
+  "peerDependencies": {
+    "@cordisjs/plugin-capability": "^0.1.0",
+    "cordis": "^4.0.0-rc.4",
+    "schemastery": "^3.0.0"
+  },
+  "devDependencies": {
+    "@cordisjs/plugin-capability": "^0.1.0",
+    "@types/chai": "^5.2.3",
+    "@types/mocha": "^10.0.10",
+    "chai": "^5.3.3",
+    "cordis": "^4.0.0-rc.4",
+    "schemastery": "^3.0.0"
+  }
+}
