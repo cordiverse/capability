@@ -26,10 +26,10 @@
   },
   "devDependencies": {
     "@cordisjs/plugin-capability": "^0.1.0",
-    "@cordisjs/plugin-server": "^1.5.0",
     "@types/chai": "^5.2.3",
     "@types/mocha": "^10.0.10",
     "chai": "^5.3.3",
+    "@cordisjs/plugin-server": "^1.6.0",
     "cordis": "^4.0.0-rc.4"
   }
 }

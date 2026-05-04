@@ -170,4 +170,72 @@ describe('@cordisjs/plugin-server-capability', () => {
     })).json() as any
     expect(new Set(body.capabilities)).to.deep.equal(new Set(['token:admin-key', 'base']))
   })
+
+  describe('auto-assert via Route.Options.capabilities', () => {
+    it('grants access when all required caps are satisfied', async () => {
+      ({ ctx, baseUrl } = await setup())
+      ctx.on('capability/build-session', ({ session }) => { session.capabilities = ['admin'] })
+      ctx.server.get('/auto', async () => Response.json({ ok: true }), {
+        capabilities: ['admin'],
+      })
+      await sleep()
+      const res = await fetch(`${baseUrl}/auto`)
+      expect(res.status).to.equal(200)
+      expect(await res.json()).to.deep.equal({ ok: true })
+    })
+
+    it('denies with 403 JSON when required caps are missing', async () => {
+      ({ ctx, baseUrl } = await setup())
+      let reached = false
+      ctx.server.get('/auto', async () => {
+        reached = true
+        return Response.json({ ok: true })
+      }, { capabilities: ['admin'] })
+      await sleep()
+      const res = await fetch(`${baseUrl}/auto`)
+      expect(res.status).to.equal(403)
+      const body = await res.json() as any
+      expect(body.error).to.equal('CAPABILITY_DENIED')
+      expect(body.missing).to.deep.equal(['admin'])
+      expect(reached).to.equal(false)
+    })
+
+    it('no capabilities on route means no auto-assert', async () => {
+      ({ ctx, baseUrl } = await setup())
+      ctx.server.get('/open', async () => Response.json({ ok: true }))
+      await sleep()
+      const res = await fetch(`${baseUrl}/open`)
+      expect(res.status).to.equal(200)
+    })
+
+    it('intercept.routes overrides per-route capabilities on same key', async () => {
+      ({ ctx, baseUrl } = await setup())
+      ctx.on('capability/build-session', ({ session }) => {
+        session.capabilities = ['read']
+      })
+      const scoped = ctx.intercept('server', {
+        routes: { 'GET /items': { capabilities: ['write'] } },
+      })
+      // route-side caps replaced by intercept's ['write']; session only has 'read'
+      scoped.server.get('/items', async () => Response.json({ ok: true }), {
+        capabilities: ['read'],
+      })
+      await sleep()
+
+      const res = await fetch(`${baseUrl}/items`)
+      expect(res.status).to.equal(403)
+      expect((await res.json() as any).missing).to.deep.equal(['write'])
+    })
+
+    it('intercept-only capabilities also enforced', async () => {
+      ({ ctx, baseUrl } = await setup())
+      const scoped = ctx.intercept('server', {
+        routes: { 'GET /locked': { capabilities: ['admin'] } },
+      })
+      scoped.server.get('/locked', async () => Response.json({ ok: true }))
+      await sleep()
+      const res = await fetch(`${baseUrl}/locked`)
+      expect(res.status).to.equal(403)
+    })
+  })
 })

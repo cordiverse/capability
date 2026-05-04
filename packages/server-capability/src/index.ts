@@ -14,6 +14,12 @@ declare module '@cordisjs/plugin-server' {
     session: Partial<Capability.Session>
     capability: CapabilityApi
   }
+
+  namespace Route {
+    interface Options {
+      capabilities?: string[]
+    }
+  }
 }
 
 export interface BuildSessionEvent {
@@ -72,5 +78,12 @@ export function apply(ctx: Context) {
       }
       throw err
     }
+  })
+
+  ctx.on('server/route-request', async (req, res, route, next) => {
+    if (route.options.capabilities?.length) {
+      await req.capability.assert(...route.options.capabilities)
+    }
+    return next()
   })
 }
