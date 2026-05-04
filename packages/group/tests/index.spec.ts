@@ -1,19 +1,13 @@
 import { Context } from 'cordis'
 import Capability from '@cordisjs/plugin-capability'
-import * as CapabilityGroupNs from '@cordisjs/plugin-capability-group'
+import * as CapabilityGroup from '@cordisjs/plugin-capability-group'
 import { expect } from 'chai'
-
-const CapabilityGroup = {
-  name: CapabilityGroupNs.name,
-  inject: CapabilityGroupNs.inject,
-  apply: CapabilityGroupNs.apply,
-}
 
 function sleep(ms = 0) {
   return new Promise<void>((resolve) => setTimeout(resolve, ms))
 }
 
-async function setup(groups: CapabilityGroupNs.Config['groups'] = []) {
+async function setup(groups: CapabilityGroup.Config['groups'] = []) {
   const ctx = new Context()
   await ctx.plugin(Capability)
   await ctx.plugin(CapabilityGroup, { groups })

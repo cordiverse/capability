@@ -1,8 +1,4 @@
 {
-  "extends": "../../../tsconfig",
-  "compilerOptions": {
-    "rootDir": ".",
-    "outDir": "."
-  },
+  "extends": "../../../tsconfig.test",
   "include": ["."],
 }

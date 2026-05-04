@@ -3,16 +3,10 @@ import Database from '@cordisjs/plugin-database'
 import MemoryDriver from '@cordisjs/plugin-database-memory'
 import Server from '@cordisjs/plugin-server'
 import Capability from '@cordisjs/plugin-capability'
-import * as ServerCapabilityNs from '@cordisjs/plugin-server-capability'
+import * as ServerCapability from '@cordisjs/plugin-server-capability'
 import Sso from '@cordisjs/plugin-sso'
-import SsoCapability from '../src'
+import SsoCapability from '@cordisjs/plugin-sso-capability'
 import { expect } from 'chai'
-
-const ServerCapability = {
-  name: ServerCapabilityNs.name,
-  inject: ServerCapabilityNs.inject,
-  apply: ServerCapabilityNs.apply,
-}
 
 function sleep(ms = 0) {
   return new Promise<void>((resolve) => setTimeout(resolve, ms))
@@ -92,7 +86,7 @@ describe('@cordisjs/plugin-sso-capability', () => {
       })).json() as any
       expect(body.userId).to.equal(user.id)
       expect(body.identityId).to.equal(identityId)
-      expect(body.capabilities).to.deep.equal(['admin'])
+      expect(new Set(body.capabilities)).to.deep.equal(new Set([`token:${token}`, 'admin']))
     })
 
     it('no token → empty session', async () => {
@@ -102,13 +96,13 @@ describe('@cordisjs/plugin-sso-capability', () => {
       expect(body).to.deep.equal({})
     })
 
-    it('invalid token → empty session', async () => {
+    it('invalid token → only token capability, no sso-derived fields', async () => {
       ctx.server.get('/probe', async (req) => Response.json(req.session))
       await sleep()
       const body = await (await fetch(`${baseUrl}/probe`, {
         headers: { Authorization: 'Bearer nope' },
       })).json() as any
-      expect(body).to.deep.equal({})
+      expect(body).to.deep.equal({ capabilities: ['token:nope'] })
     })
 
     it('end-to-end: protected route with granted capability returns 200', async () => {

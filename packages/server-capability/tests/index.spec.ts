@@ -2,8 +2,7 @@ import { Context } from 'cordis'
 import Server from '@cordisjs/plugin-server'
 import Capability from '@cordisjs/plugin-capability'
 import { expect } from 'chai'
-import { name, inject, apply } from '../src'
-const ServerCapability = { name, inject, apply }
+import * as ServerCapability from '@cordisjs/plugin-server-capability'
 
 declare module '@cordisjs/plugin-capability' {
   namespace Capability {
