@@ -1,6 +1,6 @@
 {
   "name": "@cordisjs/plugin-server-capability",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "",
   "type": "module",
   "main": "lib/index.js",
@@ -20,13 +20,13 @@
   },
   "homepage": "https://github.com/cordiverse/capability",
   "peerDependencies": {
-    "@cordisjs/plugin-capability": "^0.1.0",
-    "@cordisjs/plugin-server": "^1.6.0",
+    "@cordisjs/plugin-capability": "^0.2.0",
+    "@cordisjs/plugin-server": "^1.6.1",
     "cordis": "^4.0.0-rc.4"
   },
   "devDependencies": {
-    "@cordisjs/plugin-capability": "^0.1.0",
-    "@cordisjs/plugin-server": "^1.6.0",
+    "@cordisjs/plugin-capability": "^0.2.0",
+    "@cordisjs/plugin-server": "^1.6.1",
     "cordis": "^4.0.0-rc.4"
   },
   "dependencies": {

@@ -12,13 +12,11 @@ function sleep(ms = 0) {
   return new Promise<void>((resolve) => setTimeout(resolve, ms))
 }
 
-let portCursor = 34000
-
 async function setup() {
   const ctx = new Context()
   await ctx.plugin(Database)
   await ctx.plugin(MemoryDriver)
-  await ctx.plugin(Server, { host: '127.0.0.1', port: portCursor++, maxPort: 39999 })
+  await ctx.plugin(Server, { host: '127.0.0.1', port: 0 })
   await ctx.plugin(Capability)
   await ctx.plugin(ServerCapability)
   await ctx.plugin(Sso)

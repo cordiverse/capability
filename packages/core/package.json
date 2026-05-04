@@ -1,7 +1,7 @@
 {
   "name": "@cordisjs/plugin-capability",
   "description": "Abstract capability system for Cordis",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
