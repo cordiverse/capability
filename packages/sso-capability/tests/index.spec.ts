@@ -6,7 +6,7 @@ import Capability from '@cordisjs/plugin-capability'
 import * as ServerCapability from '@cordisjs/plugin-server-capability'
 import Sso from '@cordisjs/plugin-sso'
 import SsoCapability from '@cordisjs/plugin-sso-capability'
-import { expect } from 'chai'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
 function sleep(ms = 0) {
   return new Promise<void>((resolve) => setTimeout(resolve, ms))

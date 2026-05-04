@@ -1,7 +1,7 @@
 import { Context } from 'cordis'
 import Server from '@cordisjs/plugin-server'
 import Capability from '@cordisjs/plugin-capability'
-import { expect } from 'chai'
+import { afterEach, describe, expect, it } from 'vitest'
 import * as ServerCapability from '@cordisjs/plugin-server-capability'
 
 declare module '@cordisjs/plugin-capability' {

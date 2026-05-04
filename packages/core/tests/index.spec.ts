@@ -1,5 +1,5 @@
 import { Context } from 'cordis'
-import { expect } from 'chai'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { Capability, createMatch } from '@cordisjs/plugin-capability'
 
 function sleep(ms = 0) {

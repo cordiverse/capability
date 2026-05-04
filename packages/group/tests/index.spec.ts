@@ -1,7 +1,7 @@
 import { Context } from 'cordis'
 import Capability from '@cordisjs/plugin-capability'
 import * as CapabilityGroup from '@cordisjs/plugin-capability-group'
-import { expect } from 'chai'
+import { describe, expect, it } from 'vitest'
 
 function sleep(ms = 0) {
   return new Promise<void>((resolve) => setTimeout(resolve, ms))
