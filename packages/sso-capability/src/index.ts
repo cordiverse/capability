@@ -53,7 +53,7 @@ export class SsoCapability extends Service {
       foreign: { userId: ['sso.user', 'id'] },
     })
 
-    ctx.on('capability/build-session', async ({ req, session }) => {
+    ctx.on('server/capability-session', async ({ req, session }) => {
       const token = extractBearer(req.headers.get('authorization'))
       if (!token) return
       const user = await ctx.sso.validateSession(token)

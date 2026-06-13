@@ -1,6 +1,6 @@
 {
   "name": "@cordisjs/plugin-server-capability",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "",
   "type": "module",
   "main": "lib/index.js",
@@ -20,14 +20,14 @@
   },
   "homepage": "https://github.com/cordiverse/capability",
   "peerDependencies": {
-    "@cordisjs/plugin-capability": "^0.2.0",
-    "@cordisjs/plugin-server": "^1.6.1",
-    "cordis": "^4.0.0-rc.4"
+    "@cordisjs/plugin-capability": "^0.2.1",
+    "@cordisjs/plugin-server": "^1.7.0",
+    "cordis": "^4.0.0-rc.6"
   },
   "devDependencies": {
-    "@cordisjs/plugin-capability": "^0.2.0",
-    "@cordisjs/plugin-server": "^1.6.1",
-    "cordis": "^4.0.0-rc.4"
+    "@cordisjs/plugin-capability": "^0.2.1",
+    "@cordisjs/plugin-server": "^1.7.0",
+    "cordis": "^4.0.0-rc.6"
   },
   "dependencies": {
     "cosmokit": "^1.8.1"

@@ -52,7 +52,7 @@ describe('@cordisjs/plugin-server-capability', () => {
 
   it('listeners populate the session before route dispatch', async () => {
     ({ ctx, baseUrl } = await setup())
-    ctx.on('capability/build-session', ({ session }) => {
+    ctx.on('server/capability-session', ({ session }) => {
       session.capabilities = ['admin']
       session.userId = 7
     })
@@ -67,8 +67,8 @@ describe('@cordisjs/plugin-server-capability', () => {
 
   it('multiple listeners cooperate, each filling a slice', async () => {
     ({ ctx, baseUrl } = await setup())
-    ctx.on('capability/build-session', ({ session }) => { session.userId = 1 })
-    ctx.on('capability/build-session', ({ session }) => { session.capabilities = ['x'] })
+    ctx.on('server/capability-session', ({ session }) => { session.userId = 1 })
+    ctx.on('server/capability-session', ({ session }) => { session.capabilities = ['x'] })
     ctx.server.get('/probe', async (req) => Response.json(req.session))
     await sleep()
     const body = await (await fetch(`${baseUrl}/probe`)).json() as any
@@ -77,7 +77,7 @@ describe('@cordisjs/plugin-server-capability', () => {
 
   it('req.capability.check goes through the capability service', async () => {
     ({ ctx, baseUrl } = await setup())
-    ctx.on('capability/build-session', ({ session }) => { session.capabilities = ['admin'] })
+    ctx.on('server/capability-session', ({ session }) => { session.capabilities = ['admin'] })
     ctx.server.get('/check/:name', async (req) => {
       return Response.json({ ok: await req.capability.check(req.params.name) })
     })
@@ -88,7 +88,7 @@ describe('@cordisjs/plugin-server-capability', () => {
 
   it('req.capability.assert resolves when granted', async () => {
     ({ ctx, baseUrl } = await setup())
-    ctx.on('capability/build-session', ({ session }) => { session.capabilities = ['admin'] })
+    ctx.on('server/capability-session', ({ session }) => { session.capabilities = ['admin'] })
     ctx.server.get('/admin-only', async (req) => {
       await req.capability.assert('admin')
       return Response.json({ ok: true })
@@ -115,7 +115,7 @@ describe('@cordisjs/plugin-server-capability', () => {
 
   it('req.capability.test ANDs multiple names', async () => {
     ({ ctx, baseUrl } = await setup())
-    ctx.on('capability/build-session', ({ session }) => { session.capabilities = ['a', 'b'] })
+    ctx.on('server/capability-session', ({ session }) => { session.capabilities = ['a', 'b'] })
     ctx.server.get('/multi', async (req) => {
       return Response.json({
         both: await req.capability.test('a', 'b'),
@@ -158,7 +158,7 @@ describe('@cordisjs/plugin-server-capability', () => {
 
   it('token capability composes with other listeners', async () => {
     ({ ctx, baseUrl } = await setup())
-    ctx.on('capability/build-session', ({ session }) => {
+    ctx.on('server/capability-session', ({ session }) => {
       session.capabilities = [...(session.capabilities ?? []), 'base']
     })
     ctx.server.get('/probe', async (req) => Response.json(req.session))
@@ -172,7 +172,7 @@ describe('@cordisjs/plugin-server-capability', () => {
   describe('auto-assert via Route.Options.capabilities', () => {
     it('grants access when all required caps are satisfied', async () => {
       ({ ctx, baseUrl } = await setup())
-      ctx.on('capability/build-session', ({ session }) => { session.capabilities = ['admin'] })
+      ctx.on('server/capability-session', ({ session }) => { session.capabilities = ['admin'] })
       ctx.server.get('/auto', async () => Response.json({ ok: true }), {
         capabilities: ['admin'],
       })
@@ -208,7 +208,7 @@ describe('@cordisjs/plugin-server-capability', () => {
 
     it('intercept.routes overrides per-route capabilities on same key', async () => {
       ({ ctx, baseUrl } = await setup())
-      ctx.on('capability/build-session', ({ session }) => {
+      ctx.on('server/capability-session', ({ session }) => {
         session.capabilities = ['read']
       })
       const scoped = ctx.intercept('server', {

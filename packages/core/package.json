@@ -1,7 +1,7 @@
 {
   "name": "@cordisjs/plugin-capability",
   "description": "Abstract capability system for Cordis",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "type": "module",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -35,10 +35,10 @@
     }
   },
   "peerDependencies": {
-    "cordis": "^4.0.0-rc.4"
+    "cordis": "^4.0.0-rc.6"
   },
   "devDependencies": {
-    "cordis": "^4.0.0-rc.4"
+    "cordis": "^4.0.0-rc.6"
   },
   "dependencies": {
     "cosmokit": "^1.8.1"

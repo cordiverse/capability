@@ -5,7 +5,7 @@ import type { Capability } from '@cordisjs/plugin-capability'
 
 declare module 'cordis' {
   interface Events {
-    'capability/build-session'(data: BuildSessionEvent): Awaitable<void>
+    'server/capability-session'(data: BuildSessionEvent): Awaitable<void>
   }
 }
 
@@ -55,7 +55,7 @@ export function apply(ctx: Context) {
     const session: Partial<Capability.Session> = {}
     const token = extractBearer(req.headers.get('authorization'))
     if (token) session.capabilities = [`token:${token}`]
-    await ctx.parallel('capability/build-session', { req, session })
+    await ctx.parallel('server/capability-session', { req, session })
     Object.assign(req, {
       session,
       capability: {

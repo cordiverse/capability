@@ -1,6 +1,6 @@
 {
   "name": "@cordisjs/plugin-sso-capability",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Bridge SSO users to the capability system",
   "type": "module",
   "main": "lib/index.js",
@@ -31,20 +31,20 @@
     }
   },
   "peerDependencies": {
-    "@cordisjs/plugin-capability": "^0.2.0",
-    "@cordisjs/plugin-database": "^4.0.0",
-    "@cordisjs/plugin-server": "^1.6.1",
-    "@cordisjs/plugin-server-capability": "^0.2.0",
-    "@cordisjs/plugin-sso": "^0.1.0",
-    "cordis": "^4.0.0-rc.4"
+    "@cordisjs/plugin-capability": "^0.2.1",
+    "@cordisjs/plugin-database": "^4.1.0",
+    "@cordisjs/plugin-server": "^1.7.0",
+    "@cordisjs/plugin-server-capability": "^0.2.1",
+    "@cordisjs/plugin-sso": "^0.2.2",
+    "cordis": "^4.0.0-rc.6"
   },
   "devDependencies": {
-    "@cordisjs/plugin-capability": "^0.2.0",
-    "@cordisjs/plugin-database": "^4.0.0",
-    "@cordisjs/plugin-database-memory": "^4.0.0",
-    "@cordisjs/plugin-server": "^1.6.1",
-    "@cordisjs/plugin-server-capability": "^0.2.0",
-    "@cordisjs/plugin-sso": "^0.1.0",
-    "cordis": "^4.0.0-rc.4"
+    "@cordisjs/plugin-capability": "^0.2.1",
+    "@cordisjs/plugin-database": "^4.1.0",
+    "@cordisjs/plugin-database-memory": "^4.1.0",
+    "@cordisjs/plugin-server": "^1.7.0",
+    "@cordisjs/plugin-server-capability": "^0.2.1",
+    "@cordisjs/plugin-sso": "^0.2.2",
+    "cordis": "^4.0.0-rc.6"
   }
 }
